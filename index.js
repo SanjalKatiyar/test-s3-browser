@@ -5,7 +5,7 @@ const {
 } = require("@aws-sdk/client-s3");
 const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
-// const { readFileSync } = require('fs');
+const { readFileSync } = require('fs');
 
 // https://ae17bf3c2c0c742e39a1ce261d29954c-1806269466.us-east-1.elb.amazonaws.com (load balancer serivce) ----> (WORKS WITH TLS DISABLED)
 // https://ae17bf3c2c0c742e39a1ce261d29954c-1806269466.us-east-1.elb.amazonaws.com:443 (load balancer serivce for https port) ----> (WORKS WITH TLS DISABLED)
@@ -18,11 +18,11 @@ const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
 
 // 'https://a2efcedcfee1d4e1995ea82930a9762f-1785970140.us-east-1.elb.amazonaws.com:443', // 'https://s3-openshift-storage.apps.odfcluster-uk-aug-12.devcluster.openshift.com:443', // 'http://127.0.0.1:9000', // http://s3-http-openshift-storage.apps.odfcluster-uk-aug-12.devcluster.openshift.com:80
 
-// const certs = [readFileSync("ca-bundle.crt")];
-// const agent = new https.Agent({
-//    rejectUnauthorized: true,
-//    ca: certs,
-// });
+const certs = [readFileSync("ca-bundle.crt")];
+const agent = new https.Agent({
+   rejectUnauthorized: true,
+   ca: certs,
+});
 
 const client = new S3Client({
     region: 'us-east-1',
@@ -31,20 +31,17 @@ const client = new S3Client({
         accessKeyId: '' /* <NOOBAA_ADMIN_SECRET_HERE> */,
         secretAccessKey: '' /* <NOOBAA_ADMIN_SECRET_HERE> */,
     },
-    // s3ForcePathStyle: true,
-    // requestHandler: new NodeHttpHandler({
-    //     httpAgent: agent,
-    //     httpsAgent: agent
-    // }),
+    s3ForcePathStyle: true,
     requestHandler: new NodeHttpHandler({
-        httpsAgent: new https.Agent({
-          rejectUnauthorized: false,
-        }),
+        httpAgent: agent,
+        httpsAgent: agent
     }),
+    // requestHandler: new NodeHttpHandler({
+    //     httpsAgent: new https.Agent({
+    //       rejectUnauthorized: false,
+    //     }),
+    // }),
     // sslEnabled: false,
-    // httpOptions: {
-    //     agent: new http.Agent({ rejectUnauthorized: false })
-    // },
 });
 
 const input = { "Bucket": "examplebucket-new-1234" };
@@ -55,5 +52,5 @@ client.send(command).then((res) => {
 }).catch((err) => {
     console.log("error response:");
     console.log(err);
-    // console.log(err.$response);
+    console.log(err.$response);
 });

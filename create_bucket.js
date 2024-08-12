@@ -1,6 +1,6 @@
 const {
     S3Client,
-    ListBucketsCommand,
+    CreateBucketCommand,
 } = require("@aws-sdk/client-s3");
 const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
@@ -21,8 +21,8 @@ const client = new S3Client({
     // sslEnabled: false,
 });
 
-const input = {};
-const command = new ListBucketsCommand(input);
+const input = { "Bucket": "examplebucket-new-1234" };
+const command = new CreateBucketCommand(input);
 client.send(command).then((res) => {
     console.log("success response:");
     console.log(res);
