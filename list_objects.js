@@ -20,7 +20,7 @@ const client = new S3({
 });
 
 const input = { "Bucket": "examplebucket-new" };
-client.createBucket(input).then((res) => {
+client.listObjects(input).then((res) => {
     console.log("success response:");
     console.log(res);
 }).catch((err) => {

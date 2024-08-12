@@ -19,8 +19,8 @@ const client = new S3({
     // sslEnabled: false,
 });
 
-const input = { "Bucket": "examplebucket-new" };
-client.createBucket(input).then((res) => {
+const input = { "Bucket": "examplebucket-new-1234567" };
+client.deleteBucket(input).then((res) => {
     console.log("success response:");
     console.log(res);
 }).catch((err) => {
