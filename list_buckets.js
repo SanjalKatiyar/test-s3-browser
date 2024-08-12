@@ -4,13 +4,14 @@ const {
 } = require("@aws-sdk/client-s3");
 const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
+const { accessKeyId, secretAccessKey, endpoint } = require('./creds');
 
 const client = new S3Client({
     region: 'us-east-1',
-    endpoint: 'https://s3-openshift-storage.apps.odfcluster-uk-aug-12.devcluster.openshift.com:443',
+    endpoint: endpoint,
     credentials: {
-        accessKeyId: '' /* <NOOBAA_ADMIN_SECRET_HERE> */,
-        secretAccessKey: '' /* <NOOBAA_ADMIN_SECRET_HERE> */,
+        accessKeyId: accessKeyId,
+        secretAccessKey: secretAccessKey,
     },
     s3ForcePathStyle: true,
     requestHandler: new NodeHttpHandler({

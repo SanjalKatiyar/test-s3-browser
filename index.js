@@ -6,6 +6,7 @@ const {
 const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
 const { readFileSync } = require('fs');
+const { accessKeyId, secretAccessKey, endpoint } = require('./creds');
 
 // https://ae17bf3c2c0c742e39a1ce261d29954c-1806269466.us-east-1.elb.amazonaws.com (load balancer serivce) ----> (WORKS WITH TLS DISABLED)
 // https://ae17bf3c2c0c742e39a1ce261d29954c-1806269466.us-east-1.elb.amazonaws.com:443 (load balancer serivce for https port) ----> (WORKS WITH TLS DISABLED)
@@ -28,8 +29,8 @@ const client = new S3Client({
     region: 'us-east-1',
     endpoint: 'https://s3-openshift-storage.apps.odfcluster-uk-aug-12.devcluster.openshift.com:443', // 'http://s3-http-openshift-storage.apps.odfcluster-uk-aug-12.devcluster.openshift.com',
     credentials: {
-        accessKeyId: '' /* <NOOBAA_ADMIN_SECRET_HERE> */,
-        secretAccessKey: '' /* <NOOBAA_ADMIN_SECRET_HERE> */,
+        accessKeyId: accessKeyId,
+        secretAccessKey: secretAccessKey,
     },
     s3ForcePathStyle: true,
     requestHandler: new NodeHttpHandler({
