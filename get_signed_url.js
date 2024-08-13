@@ -2,10 +2,10 @@ const { S3, GetObjectCommand } = require('@aws-sdk/client-s3');
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
-const { accessKeyId, secretAccessKey, endpoint } = require('./creds');
+const { accessKeyId, secretAccessKey, endpoint, region } = require('./creds');
 
 const client = new S3({
-    region: 'us-east-1',
+    region: region,
     endpoint: endpoint,
     credentials: {
         accessKeyId: accessKeyId,

@@ -7,7 +7,7 @@ const { S3 } = require('@aws-sdk/client-s3');
 const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
 const { readFileSync } = require('fs');
-const { accessKeyId, secretAccessKey, endpoint } = require('./creds');
+const { accessKeyId, secretAccessKey, endpoint, region } = require('./creds');
 
 // https://ae17bf3c2c0c742e39a1ce261d29954c-1806269466.us-east-1.elb.amazonaws.com (load balancer serivce) ----> (WORKS WITH TLS DISABLED)
 // https://ae17bf3c2c0c742e39a1ce261d29954c-1806269466.us-east-1.elb.amazonaws.com:443 (load balancer serivce for https port) ----> (WORKS WITH TLS DISABLED)
@@ -28,7 +28,7 @@ const { accessKeyId, secretAccessKey, endpoint } = require('./creds');
 // });
 
 // const client = new S3({
-//     region: 'us-east-1',
+//     region: region,
 //     endpoint: endpoint,
 //     credentials: {
 //         accessKeyId: accessKeyId,
@@ -46,7 +46,7 @@ const { accessKeyId, secretAccessKey, endpoint } = require('./creds');
 // });
 
 // const client = new S3Client({
-//     region: 'us-east-1',
+//     region: region,
 //     endpoint: 'https://s3-openshift-storage.apps.odfcluster-uk-aug-12.devcluster.openshift.com:443', // 'http://s3-http-openshift-storage.apps.odfcluster-uk-aug-12.devcluster.openshift.com',
 //     credentials: {
 //         accessKeyId: accessKeyId,
