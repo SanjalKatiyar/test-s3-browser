@@ -19,8 +19,12 @@ const client = new S3({
     // sslEnabled: false,
 });
 
-const input = { "Bucket": "test-bucket" };
-client.createBucket(input).then((res) => {
+const input = { 
+    Bucket: "test-bucket",
+    Key: "test-123.txt",
+    Body: "Hello Test 123",
+ };
+client.putObject(input).then((res) => {
     console.log("success response:");
     console.log(res);
 }).catch((err) => {

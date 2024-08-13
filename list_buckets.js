@@ -22,6 +22,7 @@ const client = new S3Client({
     // sslEnabled: false,
 });
 
+// use "S3" format instead of "S3Client" (check other files)
 const input = {};
 const command = new ListBucketsCommand(input);
 client.send(command).then((res) => {

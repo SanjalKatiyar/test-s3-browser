@@ -19,7 +19,7 @@ const client = new S3({
     // sslEnabled: false,
 });
 
-const input = { "Bucket": "examplebucket-new" };
+const input = { "Bucket": "test-bucket" };
 client.listObjects(input).then((res) => {
     console.log("success response:");
     console.log(res);
