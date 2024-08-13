@@ -4,6 +4,8 @@ const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
 const { accessKeyId, secretAccessKey, endpoint, region } = require('./creds');
 
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getSignedUrl-property
+
 const client = new S3({
     region: region,
     endpoint: endpoint,

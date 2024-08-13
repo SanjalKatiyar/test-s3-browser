@@ -3,7 +3,8 @@ const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
 const { accessKeyId, secretAccessKey, endpoint, region } = require('./creds');
 
-// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property
+// SDK gives a maximum of 1000 files list by default, in order to get more than that, check: https://stackoverflow.com/a/69754448
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#listObjects-property
 
 const client = new S3({
     region: region,
@@ -21,14 +22,24 @@ const client = new S3({
     // sslEnabled: false,
 });
 
-const input = { 
-    Bucket: "test-bucket",
-    Key: "test-123.txt",
+const input1 = {
+    "Bucket": "test-bucket",
+    "MaxKeys": 1,
 };
-client.getObject(input).then((res) => {
+const input2 = {
+    "Bucket": "test-bucket",
+    "MaxKeys": 1,
+    "Marker": 'hello-s3.txt'
+};
+const input3 = {
+    "Bucket": "test-bucket",
+    "MaxKeys": 1,
+    "Marker": 'test-123.txt'
+};
+client.listObjects(input3).then((res) => {
     console.log("success response:");
-    console.log(res.Body);
-    res.Body.transformToString().then((file) => console.log(file)).catch((err) => console.log(err));
+    console.log(res.IsTruncated);
+    console.log(res);
 }).catch((err) => {
     console.log("error response:");
     console.log(err);

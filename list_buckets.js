@@ -6,6 +6,8 @@ const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
 const { accessKeyId, secretAccessKey, endpoint, region } = require('./creds');
 
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#listBuckets-property
+
 const client = new S3Client({
     region: region,
     endpoint: endpoint,
