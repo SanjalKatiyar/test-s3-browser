@@ -1,4 +1,5 @@
-const { S3 } = require('@aws-sdk/client-s3');
+const { S3, GetObjectCommand } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
 const { accessKeyId, secretAccessKey, endpoint } = require('./creds');
@@ -22,9 +23,9 @@ const client = new S3({
 const input = { 
     Bucket: "test-bucket",
     Key: "test-123.txt",
-    Body: "Hello Test 123",
 };
-client.putObject(input).then((res) => {
+const command = new GetObjectCommand(input);
+getSignedUrl(client, command, { expiresIn: 3600 }).then((res) => {
     console.log("success response:");
     console.log(res);
 }).catch((err) => {

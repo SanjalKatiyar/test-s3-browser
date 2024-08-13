@@ -27,23 +27,23 @@ const { accessKeyId, secretAccessKey, endpoint } = require('./creds');
 //    ca: certs,
 // });
 
-const client = new S3({
-    region: 'us-east-1',
-    endpoint: endpoint,
-    credentials: {
-        accessKeyId: accessKeyId,
-        secretAccessKey: secretAccessKey,
-    },
-    // requestHandler: new NodeHttpHandler({
-    //     httpsAgent: agent,
-    // }),
-    requestHandler: new NodeHttpHandler({
-        httpsAgent: new https.Agent({
-          rejectUnauthorized: false,
-        }),
-    }),
-    forcePathStyle: true
-});
+// const client = new S3({
+//     region: 'us-east-1',
+//     endpoint: endpoint,
+//     credentials: {
+//         accessKeyId: accessKeyId,
+//         secretAccessKey: secretAccessKey,
+//     },
+//     // requestHandler: new NodeHttpHandler({
+//     //     httpsAgent: agent,
+//     // }),
+//     requestHandler: new NodeHttpHandler({
+//         httpsAgent: new https.Agent({
+//           rejectUnauthorized: false,
+//         }),
+//     }),
+//     forcePathStyle: true
+// });
 
 // const client = new S3Client({
 //     region: 'us-east-1',
@@ -76,12 +76,15 @@ const client = new S3({
 //     console.log(err.$response);
 // });
 
-const input = { "Bucket": "examplebucket-new-123456" };
-client.createBucket(input).then((res) => {
-    console.log("success response:");
-    console.log(res);
-}).catch((err) => {
-    console.log("error response:");
-    console.log(err);
-    console.log(err.$response);
-});
+// const input = { "Bucket": "examplebucket-new-123456" };
+// client.createBucket(input).then((res) => {
+//     console.log("success response:");
+//     console.log(res);
+// }).catch((err) => {
+//     console.log("error response:");
+//     console.log(err);
+//     console.log(err.$response);
+// });
+
+const img = readFileSync("image.png");
+console.log(img)

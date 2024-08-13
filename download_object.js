@@ -22,11 +22,11 @@ const client = new S3({
 const input = { 
     Bucket: "test-bucket",
     Key: "test-123.txt",
-    Body: "Hello Test 123",
 };
-client.putObject(input).then((res) => {
+client.getObject(input).then((res) => {
     console.log("success response:");
-    console.log(res);
+    console.log(res.Body);
+    res.Body.transformToString().then((file) => console.log(file)).catch((err) => console.log(err));
 }).catch((err) => {
     console.log("error response:");
     console.log(err);
