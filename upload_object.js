@@ -21,9 +21,10 @@ const client = new S3({
     // sslEnabled: false,
 });
 
+for (var i=1; i<=1000; i++) {
 const input = { 
-    Bucket: "test-bucket",
-    Key: "test-123.txt",
+    Bucket: "test-1",
+    Key: `test-${i}.txt`, // "test-123", // `test-${i}.txt`,
     Body: "Hello Test 123",
 };
 client.putObject(input).then((res) => {
@@ -34,3 +35,4 @@ client.putObject(input).then((res) => {
     console.log(err);
     console.log(err.$response);
 });
+}

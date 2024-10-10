@@ -1,10 +1,9 @@
-const { S3, GetObjectCommand } = require('@aws-sdk/client-s3');
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const { S3 } = require('@aws-sdk/client-s3');
 const https = require('https');
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
 const { accessKeyId, secretAccessKey, endpoint, region } = require('./creds');
 
-// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getSignedUrl-property
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
 
 const client = new S3({
     region: region,
@@ -22,12 +21,8 @@ const client = new S3({
     // sslEnabled: false,
 });
 
-const input = { 
-    Bucket: "test-1",
-    Key: "test-123.txt",
-};
-const command = new GetObjectCommand(input);
-getSignedUrl(client, command, { expiresIn: 3600 }).then((res) => {
+const input = { Bucket: "test-1" };
+client.headBucket(input).then((res) => {
     console.log("success response:");
     console.log(res);
 }).catch((err) => {

@@ -21,7 +21,7 @@ const client = new S3({
     // sslEnabled: false,
 });
 
-const input = { "Bucket": "test-bucket-new" };
+const input = { "Bucket": "test-1" };
 client.deleteBucket(input).then((res) => {
     console.log("success response:");
     console.log(res);
